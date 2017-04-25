@@ -39,7 +39,6 @@ public class CellularAutomata : MonoBehaviour
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                Debug.Log("Running");
                 int randNumber = Random.Range(0, 100);
                 if (randNumber <= probability && x != 0 && x != grid.GetLength(0) - 1 && y != 0 && y != grid.GetLength(1) - 1)
                 {
