@@ -23,7 +23,8 @@ public class CellularAutomata : MonoBehaviour
             SmoothGrid();
         }
 
-        SpawnObjects();
+        //SpawnObjects();
+        StartMarchingSquares();
     }
 	
 	// Update is called once per frame
@@ -89,6 +90,12 @@ public class CellularAutomata : MonoBehaviour
         }
 
         return neighbours;
+    }
+
+    void StartMarchingSquares()
+    {
+        MarchingSquares marchingSquares = GetComponent<MarchingSquares>();
+        marchingSquares.GenerateMesh(grid, 1);
     }
 
     void SpawnObjects()
