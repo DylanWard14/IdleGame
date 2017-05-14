@@ -8,6 +8,9 @@ public class Pathing : MonoBehaviour
 
     public Transform seeker, target;
 
+    public List<AStarNode> path = new List<AStarNode>();
+
+
     private void Awake()
     {
         grid = GetComponent<AStarGrid>();
@@ -15,10 +18,10 @@ public class Pathing : MonoBehaviour
 
     private void Update()
     {
-        FindPath(seeker.position, target.position);
+        //FindPath(seeker.position, target.position);
     }
 
-    void FindPath(Vector3 startPos, Vector3 endPos)
+    public void FindPath(Vector3 startPos, Vector3 endPos)
     {
         AStarNode startNode = grid.WorldToGridPos(startPos);
         AStarNode endNode = grid.WorldToGridPos(endPos);
@@ -79,7 +82,8 @@ public class Pathing : MonoBehaviour
 
     void RetracePath(AStarNode start, AStarNode end)
     {
-        List<AStarNode> path = new List<AStarNode>();
+        path.Clear();
+        path = new List<AStarNode>();
         AStarNode currentNode = end;
 
         while (currentNode != start)

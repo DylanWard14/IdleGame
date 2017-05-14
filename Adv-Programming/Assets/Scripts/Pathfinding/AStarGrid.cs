@@ -37,12 +37,12 @@ public class AStarGrid : MonoBehaviour
             {
                 Vector3 worldPosition = new Vector3(worldBottomLeft.x + x, 0, worldBottomLeft.z + y);
 
-                /*bool walkable = false;
+                bool walkable = false;
                 if (cellularAutomata.grid[x, y] == 0)
                 {
                     walkable = true;
-                }*/
-                bool walkable = !(Physics.CheckSphere(worldPosition, nodeRadius, unwalkableMask));
+                }
+                //bool walkable = !(Physics.CheckSphere(worldPosition, nodeRadius, unwalkableMask));
 
                 grid[x, y] = new AStarNode(walkable, worldPosition, x, y);
             }
@@ -67,35 +67,21 @@ public class AStarGrid : MonoBehaviour
     {
         List<AStarNode> neighbours = new List<AStarNode>();
 
-        for (int x = node.gridPositionX - 1; x < node.gridPositionX + 1; x++) // this doesnt work, adds the same node each time.
+        for (int x = node.gridPositionX - 1; x <= node.gridPositionX + 1; x++)
         {
-            for (int y = node.gridPositionY - 1; y < node.gridPositionY + 1; y++)
+            for (int y = node.gridPositionY - 1; y <= node.gridPositionY + 1; y++)
             {
                 if (x == node.gridPositionX && y == node.gridPositionY)
-                    continue;
-                else if (x >= 0 || x <= gridSizeX || y >= 0 || y <= gridSizeY)
                 {
-                    neighbours.Add(node);
+                    continue;
+                }
+
+                if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY)
+                {
+                    neighbours.Add(grid[x,y]);
                 }
             }
         }
-
-        /*for (int x = -1; x <= 1; x++)
-        {
-            for (int y = -1; y <= 1; y++)
-            {
-                if (x == 0 && y == 0)
-                    continue;
-
-                int checkX = node.gridPositionX + x;
-                int checkY = node.gridPositionY + y;
-
-                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
-                {
-                    neighbours.Add(grid[checkX, checkY]);
-                }
-            }
-        }*/
 
         return neighbours;
     }
@@ -108,29 +94,18 @@ public class AStarGrid : MonoBehaviour
 
         if (grid != null)
         {
-            Debug.Log("Grid Not null");
             foreach (AStarNode n in grid)
             {
                 Gizmos.color = (n.walkable) ? Color.white : Color.red;
                 if (path != null)
                 {
-                   // Debug.Log("Path Not null");
                     if (path.Contains(n))
                     {
                         Gizmos.color = Color.black;
                     }
                 }
-                else
-                {
-                    //Debug.Log("Path null");
-                }
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
-        }
-
-        else
-        {
-            Debug.Log("Grid Null");
         }
     }
 
