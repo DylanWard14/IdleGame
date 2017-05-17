@@ -37,12 +37,12 @@ public class AStarGrid : MonoBehaviour
             {
                 Vector3 worldPosition = new Vector3(worldBottomLeft.x + x, 0, worldBottomLeft.z + y);
 
-                bool walkable = false;
-                if (cellularAutomata.grid[x, y] == 0)
-                {
-                    walkable = true;
-                }
-                //bool walkable = !(Physics.CheckSphere(worldPosition, nodeRadius, unwalkableMask));
+                //bool walkable = false;
+                //if (cellularAutomata.grid[x, y] == 0)
+                //{
+                  //  walkable = true;
+                //}
+                bool walkable = !(Physics.CheckSphere(worldPosition, nodeRadius, unwalkableMask));
 
                 grid[x, y] = new AStarNode(walkable, worldPosition, x, y);
             }
@@ -88,7 +88,7 @@ public class AStarGrid : MonoBehaviour
 
     public List<AStarNode> path;
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSizeX, 1, gridWorldSizeY));
 
@@ -107,6 +107,6 @@ public class AStarGrid : MonoBehaviour
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
         }
-    }
+    }*/
 
 }

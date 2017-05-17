@@ -6,10 +6,8 @@ public class Pathing : MonoBehaviour
 {
     AStarGrid grid;
 
-    public Transform seeker, target;
-
     public List<AStarNode> path = new List<AStarNode>();
-
+    public bool thereIsNoPath = false;
 
     private void Awake()
     {
@@ -21,14 +19,15 @@ public class Pathing : MonoBehaviour
         //FindPath(seeker.position, target.position);
     }
 
-    public void FindPath(Vector3 startPos, Vector3 endPos)
+    public List<AStarNode> FindPath(Vector3 startPos, Vector3 endPos)
     {
         AStarNode startNode = grid.WorldToGridPos(startPos);
         AStarNode endNode = grid.WorldToGridPos(endPos);
 
         List<AStarNode> openSet = new List<AStarNode>();
         HashSet<AStarNode> closedSet = new HashSet<AStarNode>();
-
+        bool foundPath = false;
+        thereIsNoPath = false;
         openSet.Add(startNode);
 
         while (openSet.Count > 0)//
@@ -52,8 +51,10 @@ public class Pathing : MonoBehaviour
             if (currentNode == endNode)
             {
                 //retrace path
-                RetracePath(startNode, endNode);
-                return;
+                //return RetracePath(startNode, endNode);
+                foundPath = true;
+                thereIsNoPath = false;
+                //return;
             }
 
             foreach (AStarNode neighbour in grid.FindNeighbours(currentNode))
@@ -78,9 +79,20 @@ public class Pathing : MonoBehaviour
                 }
             }
         }
+
+        if (foundPath)
+        {
+            return RetracePath(startNode, endNode);
+        }
+        else
+        {
+            Debug.Log("no path");
+            thereIsNoPath = true;
+            return null;
+        }
     }
 
-    void RetracePath(AStarNode start, AStarNode end)
+    List<AStarNode> RetracePath(AStarNode start, AStarNode end)
     {
         path.Clear();
         path = new List<AStarNode>();
@@ -93,7 +105,9 @@ public class Pathing : MonoBehaviour
         }
 
         path.Reverse();
-        grid.path = path;
+        return path;
+
+        //grid.path = path;
     }
 
     public int GetDistance(AStarNode nodeA, AStarNode nodeB)

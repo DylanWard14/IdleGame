@@ -72,7 +72,7 @@ public class CellularAutomata : MonoBehaviour
         }
     }
 
-    int GetAmountOfNeighbours(int gridX, int gridY)
+    public int GetAmountOfNeighbours(int gridX, int gridY)
     {
         int neighbours = 0;
 
