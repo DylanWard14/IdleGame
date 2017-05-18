@@ -25,6 +25,21 @@ public class Player : MonoBehaviour
     {
         if (target)
         {
+            if (movement.atTarget)
+            {
+                if (target.tag == ("Ladder"))
+                {
+                    Debug.Log("Loading New level");
+                    Application.LoadLevel("FloorCompleted");
+                }
+                else if (target.tag == ("Enemy"))
+                {
+                    target.GetComponent<Enemy>().thisEnemy.ApplyDamage(10);
+                    movement.atTarget = false;
+                }
+
+            }
+
             movement.GetAndFollowPath(target.transform.position);
 
             if (movement.cantFindPath && target.tag != ("Ladder"))
@@ -33,27 +48,17 @@ public class Player : MonoBehaviour
                 movement.cantFindPath = false;
                 movement.hasPath = false;
             }
-            else if (movement.cantFindPath && target.tag == ("Ladder"))
-            {
-                Application.LoadLevel(Application.loadedLevel);
-            }
-
-            if (movement.atTarget)
-            {
-                if (target.tag == ("Enemy"))
-                {
-                    target.GetComponent<Enemy>().thisEnemy.ApplyDamage(1);
-                }
-                else if (target.tag == ("Ladder"))
-                {
-                    Application.LoadLevel(Application.loadedLevel);
-                }
-            }
         }
         else if (!FindNewTarget())
         {
             Debug.Log("Cant find target");
+            movement.atTarget = false;
             target = GameObject.FindGameObjectWithTag("Ladder");
+        }
+
+        if (movement.cantFindPath && target.tag == ("Ladder"))
+        {
+            Application.LoadLevel("FloorCompleted");
         }
     }
 

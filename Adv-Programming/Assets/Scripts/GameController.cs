@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        bool laddarSpawned = false;
         cellularAutomata = GameObject.Find("MeshGenerator").GetComponent<CellularAutomata>();
         aStarGrid = GameObject.Find("A*").GetComponent<AStarGrid>();
 
@@ -23,18 +24,25 @@ public class GameController : MonoBehaviour
         {
             for (int y = 0; y < cellularAutomata.gridHeight; y++)
             {
-                if (x != 0 && x != cellularAutomata.grid.GetLength(0) - 1 && y != 0 && y != cellularAutomata.grid.GetLength(1) - 1)
+                if (x != 0 && x != cellularAutomata.grid.GetLength(0) - 2 && y != 0 && y != cellularAutomata.grid.GetLength(1) - 2)
                 {
-                    if (cellularAutomata.GetAmountOfNeighbours(x, y) == 0 && aStarGrid.grid[x, y].walkable && GetRandomNumber() <= probabilityToSpawnEnemy) // geting the neighbour count here stoped the enemies from spawning on the edges
+                    if (cellularAutomata.GetAmountOfNeighbours(x, y, 2) == 0 && aStarGrid.grid[x, y].walkable) // geting the neighbour count here stoped the enemies from spawning on the edges
                     { //
-                        Instantiate(enemy, aStarGrid.grid[x, y].worldPosition, Quaternion.identity);
+                        if (GetRandomNumber() <= probabilityToSpawnEnemy)
+                        {
+                            Instantiate(enemy, aStarGrid.grid[x, y].worldPosition, Quaternion.identity);
+                        }
+                        else if (!laddarSpawned)
+                        {
+                            Instantiate(ladder, aStarGrid.grid[x, y].worldPosition, Quaternion.identity);
+                            laddarSpawned = true;
+                        }
                     }
                 }
             }
         }
 
         Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(ladder, new Vector3(4, 0, 0), Quaternion.identity);
 	}
 	
 	// Update is called once per frame
@@ -47,5 +55,15 @@ public class GameController : MonoBehaviour
     {
         return Random.Range(0, 100);
 
+    }
+
+    public void AddScore(int scoreToAdd) // use this function somewhere
+    {
+        score += scoreToAdd;
+    }
+
+    public void AddScore(int scoreToAdd, int multiplier)
+    {
+        score += (scoreToAdd * multiplier);
     }
 }

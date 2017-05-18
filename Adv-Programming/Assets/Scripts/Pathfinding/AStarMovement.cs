@@ -41,12 +41,12 @@ public class AStarMovement : MonoBehaviour
                 pathIndex = 0;
             }
 
-            if (hasPath)
+            if (hasPath && myPath != null)
             {
                 if (pathIndex < myPath.Count - 1)
                 {
                     atTarget = false;
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, myPath[pathIndex].worldPosition, 0.1f);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, myPath[pathIndex].worldPosition, 0.4f);
                     transform.LookAt(myPath[pathIndex].worldPosition);
                     if (this.transform.position == myPath[pathIndex].worldPosition)
                     {
@@ -60,7 +60,7 @@ public class AStarMovement : MonoBehaviour
                 }
             }
         }
-        else if (pathing.thereIsNoPath)
+        if (pathing.thereIsNoPath)
         {
             cantFindPath = true;
         }

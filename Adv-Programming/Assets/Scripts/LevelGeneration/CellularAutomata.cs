@@ -90,6 +90,27 @@ public class CellularAutomata : MonoBehaviour
         return neighbours;
     }
 
+    public int GetAmountOfNeighbours(int gridX, int gridY, int searchArea)
+    {
+        int neighbours = 0;
+
+        for (int x = gridX - searchArea; x <= gridX + searchArea; x++)
+        {
+            for (int y = gridY - searchArea; y <= gridY + searchArea; y++)
+            {
+                if (x >= 0 && x <= gridX && y >= 0 && y <= gridY)
+                {
+                    if (grid[x, y] == 1)
+                    {
+                        neighbours++;
+                    } 
+                }
+            }
+        }
+
+        return neighbours;
+    }
+
     void StartMarchingSquares()
     {
         MarchingSquares marchingSquares = GetComponent<MarchingSquares>();
