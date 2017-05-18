@@ -66,4 +66,9 @@ public class GameController : MonoBehaviour
     {
         score += (scoreToAdd * multiplier);
     }
+
+    public int GetCurrentScore()
+    {
+        return score;
+    }
 }
