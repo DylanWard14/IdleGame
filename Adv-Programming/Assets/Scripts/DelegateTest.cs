@@ -1,0 +1,22 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DelegateTest : MonoBehaviour {
+
+    delegate void MyDelegate(int num); MyDelegate myDelegate;
+    void Start()
+    {
+        myDelegate = PrintNum;
+        myDelegate(50);
+        myDelegate = DoubleNum;
+        myDelegate(50);
+    }
+    void PrintNum(int num) { print("Print Num: " + num); }
+    void DoubleNum(int num) { print("Double Num: " + num * 2); }
+
+    // Update is called once per frame
+    void Update () {
+		
+	}
+}

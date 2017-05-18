@@ -60,10 +60,8 @@ public class AStarMovement : MonoBehaviour
                 }
             }
         }
-        if (pathing.thereIsNoPath)
-        {
-            cantFindPath = true;
-        }
+
+        cantFindPath = pathing.thereIsNoPath;
         pathing.thereIsNoPath = false;
     }
 }

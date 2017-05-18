@@ -9,10 +9,15 @@ public class UILeaderboard : MonoBehaviour
     public List<int> highscores;
     public Text[] highscoreTexts;
 
+    delegate void MyDelegate();
+    MyDelegate myDelegate;
+
 	// Use this for initialization
 	void Start ()
     {
-        UpdateLeaderboard();
+        myDelegate = UpdateLeaderboard; // assigning the delegate to use the update leaderboard function
+        myDelegate(); // calls the delegated function
+        //UpdateLeaderboard();
 	}
 	
 	// Update is called once per frame
@@ -24,21 +29,22 @@ public class UILeaderboard : MonoBehaviour
     public void AddCurrentScore()
     {
         highscores.Add(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetCurrentScore());
-        UpdateLeaderboard();
+        myDelegate();
     }
 
     void UpdateLeaderboard()
     {
-        var highscoreQuery =
-    from score in highscores
-        //where score < 10
-            orderby score descending
-    select score;
+        var highscoreQuery = // standard Linq query syntax
+        from score in highscores
+        orderby score descending
+        select score;
+
+        var highScoreQuery = highscores.OrderByDescending(n => n); // linq Query and lambda expression
 
         int i = 0;
-        foreach (int num in highscoreQuery)
+        foreach (int num in highScoreQuery)
         {
-            Debug.Log(num);
+            //Debug.Log(num);
             highscoreTexts[i].text = ((i + 1) + ": " + num);
             i++;
 

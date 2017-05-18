@@ -11,13 +11,29 @@ public class Enemy : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        thisEnemy = new EnemyClass(maxHealth, scoreReward);
-        thisEnemy.model = this.gameObject;
+        thisEnemy = new EnemyClass(maxHealth, scoreReward, this.gameObject);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        thisEnemy.OnDeath();
+        //thisEnemy.OnDeath();
+        RunThis(CallBackFunction);
 	}
+
+    void CallBackFunction()
+    {
+        if (thisEnemy.currentHealth <= 0)
+        {
+            thisEnemy.OnDeath();
+            Debug.Log("Die");
+        }
+    }
+
+    public delegate void CallBack();
+    public void RunThis(CallBack callBkFunc)
+    {
+        //Debug.Log("Running this");
+        callBkFunc();
+    }
 }

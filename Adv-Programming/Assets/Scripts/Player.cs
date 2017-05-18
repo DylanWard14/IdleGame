@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,8 +15,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        thisPlayer = new PlayerClass(maxHealth, speed);
-        thisPlayer.model = this.gameObject;
+        thisPlayer = new PlayerClass(maxHealth, speed, this.gameObject);
         movement = GetComponent<AStarMovement>();
         target = GameObject.Find("Target");
 	}
@@ -25,14 +25,17 @@ public class Player : MonoBehaviour
     {
         if (target)
         {
+            Predicate<GameObject> p = CheckTargetTagEnemy; // using a predicate to test if the value is true
+            bool result = p(target);
+
             if (movement.atTarget)
             {
-                if (target.tag == ("Ladder"))
+                if (!p(target))
                 {
                     Debug.Log("Loading New level");
                     Application.LoadLevel("FloorCompleted");
                 }
-                else if (target.tag == ("Enemy"))
+                else if (p(target))
                 {
                     target.GetComponent<Enemy>().thisEnemy.ApplyDamage(10);
                     movement.atTarget = false;
@@ -67,11 +70,16 @@ public class Player : MonoBehaviour
         movement.atTarget = false;
         if (GameObject.FindGameObjectWithTag("Enemy"))
         {
-            target = GameObject.FindGameObjectWithTag("Enemy");
-            return true;
+            return target = GameObject.FindGameObjectWithTag("Enemy");
+            //return true;
         }
         else
             return false;
 
+    }
+
+    private static bool CheckTargetTagEnemy(GameObject obj)
+    {
+        return obj.CompareTag("Enemy");
     }
 }

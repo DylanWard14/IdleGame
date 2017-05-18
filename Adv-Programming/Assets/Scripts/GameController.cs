@@ -34,8 +34,8 @@ public class GameController : MonoBehaviour
                         }
                         else if (!laddarSpawned)
                         {
-                            Instantiate(ladder, aStarGrid.grid[x, y].worldPosition, Quaternion.identity);
-                            laddarSpawned = true;
+                            laddarSpawned = Instantiate(ladder, aStarGrid.grid[x, y].worldPosition, Quaternion.identity);
+                            //laddarSpawned = true;
                         }
                     }
                 }

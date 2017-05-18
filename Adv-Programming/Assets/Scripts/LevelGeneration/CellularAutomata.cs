@@ -72,7 +72,7 @@ public class CellularAutomata : MonoBehaviour
         }
     }
 
-    public int GetAmountOfNeighbours(int gridX, int gridY)
+    public int GetAmountOfNeighbours(int gridX, int gridY) // searchings in a 3 by 3 grid around the target location
     {
         int neighbours = 0;
 
@@ -90,7 +90,7 @@ public class CellularAutomata : MonoBehaviour
         return neighbours;
     }
 
-    public int GetAmountOfNeighbours(int gridX, int gridY, int searchArea)
+    public int GetAmountOfNeighbours(int gridX, int gridY, int searchArea) // overload method that can have a larger search area
     {
         int neighbours = 0;
 

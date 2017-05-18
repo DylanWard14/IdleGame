@@ -6,20 +6,21 @@ public class Character
 {
     public int currentHealth;
     public int maxHealth;
+    public GameObject model;
 
-    public Character(int _MaxHealth)
+    public Character(int _MaxHealth, GameObject _Model)
     {
         maxHealth = _MaxHealth;
         currentHealth = maxHealth;
+        model = _Model;
     }
 }
 
 public class PlayerClass : Character, ICharacter
 {
     public float speed;
-    public GameObject model;
 
-    public PlayerClass(int _MaxHealth, float _Speed) : base (_MaxHealth)
+    public PlayerClass(int _MaxHealth, float _Speed, GameObject _Model) : base (_MaxHealth, _Model)
     {
         speed = _Speed;
     }
@@ -41,9 +42,8 @@ public class PlayerClass : Character, ICharacter
 public class EnemyClass : Character, ICharacter
 {
     public int ScoreReward;
-    public GameObject model;
 
-    public EnemyClass(int _MaxHealth, int _ScoreReward): base (_MaxHealth)
+    public EnemyClass(int _MaxHealth, int _ScoreReward, GameObject _Model): base (_MaxHealth, _Model)
     {
         ScoreReward = _ScoreReward;
     }

@@ -28,7 +28,6 @@ public class AStarGrid : MonoBehaviour
     void CreateGrid()
     {
         Vector3 worldBottomLeft = new Vector3(-gridSizeX / 2 * nodeDiameter, 0, -gridSizeY / 2 * nodeDiameter);
-        Debug.Log(worldBottomLeft);
         grid = new AStarNode[gridSizeX, gridSizeY];
 
         for (int x = 0; x < grid.GetLength(0); x++)
@@ -37,12 +36,12 @@ public class AStarGrid : MonoBehaviour
             {
                 Vector3 worldPosition = new Vector3(worldBottomLeft.x + x, 0, worldBottomLeft.z + y);
 
-                //bool walkable = false;
-                //if (cellularAutomata.grid[x, y] == 0)
+                //bool walkable = false; // reads if this location is walkable based on the cellular automata value
+                //if (cellularAutomata.grid[x, y] == 0) // doesnt work properly has it sometimes allows the player to walk through walls.
                 //{
                   //  walkable = true;
                 //}
-                bool walkable = !(Physics.CheckSphere(worldPosition, nodeRadius, unwalkableMask));
+                bool walkable = !(Physics.CheckBox(worldPosition, new Vector3(nodeRadius,nodeRadius,nodeRadius), Quaternion.identity, unwalkableMask));
 
                 grid[x, y] = new AStarNode(walkable, worldPosition, x, y);
             }
