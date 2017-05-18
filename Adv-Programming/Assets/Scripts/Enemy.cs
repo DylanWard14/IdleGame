@@ -6,26 +6,25 @@ public class Enemy : MonoBehaviour
 {
     public EnemyClass thisEnemy;
 
-    public int maxHealth;
-    public int scoreReward;
+    public int maxHealth; // the max health of this enemy
+    public int scoreReward; // the score rewared for kill the enemy
 	// Use this for initialization
 	void Start ()
     {
-        thisEnemy = new EnemyClass(maxHealth, scoreReward, this.gameObject);
+        thisEnemy = new EnemyClass(maxHealth, scoreReward, this.gameObject); // creates a new enemy object for this enemy
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //thisEnemy.OnDeath();
-        RunThis(CallBackFunction);
+        RunThis(CallBackFunction); // checks the callback function
 	}
 
     void CallBackFunction()
     {
-        if (thisEnemy.currentHealth <= 0)
+        if (thisEnemy.currentHealth <= 0) // only run this if the enemies health if below 0
         {
-            thisEnemy.OnDeath();
+            thisEnemy.OnDeath(); // call this function in the enemy class
             Debug.Log("Die");
         }
     }
@@ -33,7 +32,6 @@ public class Enemy : MonoBehaviour
     public delegate void CallBack();
     public void RunThis(CallBack callBkFunc)
     {
-        //Debug.Log("Running this");
         callBkFunc();
     }
 }

@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class UILeaderboard : MonoBehaviour
 {
-    public List<int> highscores;
-    public Text[] highscoreTexts;
+    public List<int> highscores; // will hold all the highscores, I will be using a list becuase I do not know how many scores there will be
+    public Text[] highscoreTexts; // contains the highscore text objects
 
-    delegate void MyDelegate();
-    MyDelegate myDelegate;
+    delegate void MyDelegate(); // creates a new delegate
+    MyDelegate myDelegate; 
 
 	// Use this for initialization
 	void Start ()
@@ -19,38 +19,35 @@ public class UILeaderboard : MonoBehaviour
         myDelegate(); // calls the delegated function
         //UpdateLeaderboard();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
     public void AddCurrentScore()
     {
-        highscores.Add(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetCurrentScore());
-        myDelegate();
+        highscores.Add(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetCurrentScore()); // adds the current score to the scores list
+        myDelegate(); // calls the delegated function
     }
 
+    /// <summary>
+    /// updates the leaderboard to display the most recent scores
+    /// </summary>
     void UpdateLeaderboard()
     {
         var highscoreQuery = // standard Linq query syntax
-        from score in highscores
-        orderby score descending
+        from score in highscores // gets the scores in the highscores list
+        orderby score descending // orders them in descending order
         select score;
 
         var highScoreQuery = highscores.OrderByDescending(n => n); // linq Query and lambda expression
 
         int i = 0;
-        foreach (int num in highScoreQuery)
+        foreach (int num in highScoreQuery) // loops through all the scores in the query
         {
             //Debug.Log(num);
-            highscoreTexts[i].text = ((i + 1) + ": " + num);
-            i++;
+            highscoreTexts[i].text = ((i + 1) + ": " + num); // changes the text to equal the score
+            i++; // increments i
 
-            if (i >= 10)
+            if (i >= 10) // if we have gone through this 10 times
             {
-                break;
+                break; // exit the loop
             }
         }
     }
