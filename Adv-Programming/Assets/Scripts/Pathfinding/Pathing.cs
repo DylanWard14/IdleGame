@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 1. add the start node to the open set and make it the current node
+ * 2. loop through the open set
+ * 3. if the node we are looking at in the open set now has a lower cost than the current node then add it to the open set
+ * 4. remove the current node from the open set and add it to the closed set
+ * 5. if we are at the target node then we have found the path so retrace the path back to the start  going through all the parents
+ * 6. else
+ * 7. check all the neighbours of the current node to see if there is a cheaper option
+ * 8. if there is a cheaper option add it to the open set and make the current node the parent of that neighbour
+ * 9. if we found a path then return the path
+ */
+
 public class Pathing : MonoBehaviour
 {
     AStarGrid grid; // reference to the a star grid 

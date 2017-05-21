@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 1. create a 2d array of ints at the size that is inputed
+ * 2. loop through 2d array randomly adding walls
+ * 3. smooth out the grid by looping through the array several times changing if this tile is wall or floor tile depending on how many neighbours there are
+ */
+
 public class CellularAutomata : MonoBehaviour
 {
     [Range (1,100)]

@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Using the 2d array generated from the Cellular Automata
+ * 1.create a new square grid taking in the cellular automata grid
+ * 2. intialise the vertices and triangles list
+ * 3. loop through the square grid and trianglulate the squares, creating a mesh out of the active points on the square
+ * 4. calculate the vertices and assign then to the vertices list
+ * 5. then create and assign the triangles
+ * 6. feed the calculated vertices and triangles into the mesh render and create a mesh
+ * 
+ */
+
 public class MarchingSquares : MonoBehaviour
 {
     public SquareGrid squareGrid;

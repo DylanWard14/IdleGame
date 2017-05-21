@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 1. loop through the cellular automata grid
+ * 2. if this position is a floor tile
+ * 3. attempt to spawn an enemy
+ * 4. if i couldnt spawn an enemy then try to spawn a ladder
+ * 5. if i didnt spawn a ladder or an enemy then spawn the player
+ */
+
 public class GameController : MonoBehaviour
 {
     [Range(1, 100)] // keeps the range between 1 and 100
@@ -16,7 +24,13 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        SetupLevel();
+	}
+
+    void SetupLevel()
+    {
         bool laddarSpawned = false; // bool will control if a ladder has already been spawned
+        bool playerSpawned = false;
         cellularAutomata = GameObject.Find("MeshGenerator").GetComponent<CellularAutomata>(); // finds the cellular automata script in the scene
         aStarGrid = GameObject.Find("A*").GetComponent<AStarGrid>(); // finds the AStarGrid
 
@@ -32,19 +46,13 @@ public class GameController : MonoBehaviour
                             Instantiate(enemy, aStarGrid.grid[x, y].worldPosition, Quaternion.identity); // spawn an enemy
                         else if (!laddarSpawned)
                             laddarSpawned = Instantiate(ladder, aStarGrid.grid[x, y].worldPosition, Quaternion.identity); // if no spawn a ladder and set the ladderspawned varaible to true
+                        else if (!playerSpawned && (x == (cellularAutomata.grid.GetLength(0) / 2) || y == (cellularAutomata.grid.GetLength(1) / 2)))
+                            playerSpawned = Instantiate(player, aStarGrid.grid[x, y].worldPosition, Quaternion.identity);
                     }
                 }
             }
         }
-
-        Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+    }
 
     int GetRandomNumber()
     {

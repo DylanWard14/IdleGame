@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 1. If the path is Empty, then try to find a new path
+ * 2. if the path is not empty
+ *      - while the path index is less than the paths length
+ *      - move this object towards the position of pathIndex in the path
+ *      - when we arrive at this position increment pathIndex by 1
+ *      - when we get to the ennd of the path set at target to true, this allows the player to attack the target.
+ * 
+ */
 public class AStarMovement : MonoBehaviour
 {
 

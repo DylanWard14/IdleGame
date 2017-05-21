@@ -30,8 +30,8 @@ public class Enemy : MonoBehaviour
     }
 
     public delegate void CallBack();
-    public void RunThis(CallBack callBkFunc)
+    public void RunThis(CallBack FunctionToCallback)
     {
-        callBkFunc();
+        FunctionToCallback();
     }
 }

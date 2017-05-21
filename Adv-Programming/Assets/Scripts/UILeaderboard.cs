@@ -20,10 +20,17 @@ public class UILeaderboard : MonoBehaviour
         //UpdateLeaderboard();
 	}
 
+    // when this button is pressed the score will be added to the scoreboard and the scoreboard will be updated
     public void AddCurrentScore()
     {
         highscores.Add(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetCurrentScore()); // adds the current score to the scores list
         myDelegate(); // calls the delegated function
+    }
+
+    //when the button is pressed the game will quit
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     /// <summary>
@@ -36,7 +43,7 @@ public class UILeaderboard : MonoBehaviour
         orderby score descending // orders them in descending order
         select score;
 
-        var highScoreQuery = highscores.OrderByDescending(n => n); // linq Query and lambda expression
+        var highScoreQuery = highscores.OrderByDescending(n => n); // linq Query and lambda expression ordering them in decending order
 
         int i = 0;
         foreach (int num in highScoreQuery) // loops through all the scores in the query

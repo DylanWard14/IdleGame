@@ -2,6 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 1. calculate the grid size
+ * 2. create the grid
+ *      - calculate the bottom left of the world
+ *      - initialize the grid with the grid size variables
+ *      - calculate the world position of the node using the world bottom left 
+ *      - check for a collision at this world position, if there is a collision then this area is not walkable 
+ *      - make a node at this grid position with the above to variables
+ * 
+ * 
+ */
+
 public class AStarGrid : MonoBehaviour
 {
     private int gridSizeX, gridSizeY; // the size of the grid
@@ -71,6 +83,9 @@ public class AStarGrid : MonoBehaviour
 
     /// <summary>
     /// Finds the neighbours of the input node
+    /// 1. loop through the surrounding neighbours
+    /// 2. if that neighbour is not its self then add it to the neighbours list
+    /// 3. return the neighbours list
     /// </summary>
     /// <param name="node"> the node to find the neighbours of</param>
     /// <returns></returns>
