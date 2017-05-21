@@ -136,12 +136,12 @@ public class Pathing : MonoBehaviour
         int distanceY = Mathf.Abs(nodeA.gridPositionY - nodeB.gridPositionY); // calculate the distance on the y
 
         if (distanceX > distanceY) // if the x distance is greater
-        {
-            return 14 * distanceY + 10 * (distanceX - distanceY);
+        { // 14 represents the cost of a diagonal movement and 10 represent the cost of a straight movement
+            return 14 * distanceY + 10 * (distanceX - distanceY); // calculate the distance
         }
         else // if the y distance is great
         {
-            return 14 * distanceX + 10 * (distanceY - distanceX);
+            return 14 * distanceX + 10 * (distanceY - distanceX); // calculate the distance
         }
     }
 }
